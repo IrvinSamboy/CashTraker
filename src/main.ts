@@ -1,10 +1,21 @@
-import app from "./server.ts";
-import config from "./config/index.ts";
-import type { Request, Response } from "express";
+import app, {dbConnection} from "./server";
+import config from "./config/";
+import type { Response } from "express";
 
-app.listen(config.setupConfig.PORT, () => {
-    console.log(`Server listening on port ${config.setupConfig.PORT}`)
-})
+const setupServer = async () => {
+    try{
+        await dbConnection()
+        app.listen(config.setupConfig.PORT, () => {
+            console.log(`Server listening on port ${config.setupConfig.PORT}`)
+        })
+    }
+    catch (err){
+        const errorMessage = (err as Error)
+        console.log(errorMessage.message)
+    }
+}
+
+setupServer()
 
 app.get('/healthCheck', (res: Response) => {
     return res.status(200).json({
