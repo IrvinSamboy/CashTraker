@@ -2,6 +2,8 @@ import express from 'express'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import { db } from './database/'
+import {default as budgetRouter} from './routes/budgetRouter'
+import dynamicImportDefaults from './utils/dynamicImportDefaults'
 const app = express()
 
 app.use(express.json())
@@ -20,4 +22,22 @@ export const dbConnection = async () => {
     }
 }
 
+export const addRoutes = async () => {
+    try{
+        const modules = await dynamicImportDefaults("./src/routes")
+        for(const module of modules){
+            app.use(`/api/${module.moduleName.split("Router")[0]}`, module.moduleImported)
+        }
+    }
+    catch (err) {
+        const errorMessage = (err as Error)
+        console.log(`Error adding routes ${errorMessage.message}`)
+
+    }
+}
+
+
+
+
 export default app
+

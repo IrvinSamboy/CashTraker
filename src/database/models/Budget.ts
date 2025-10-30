@@ -8,6 +8,11 @@ class Budget extends Model {
         type: DataType.STRING(100)
     })
     name: string
+
+    @Column({
+        type: DataType.DECIMAL
+    })
+    amount: number
 }
 
 export default Budget

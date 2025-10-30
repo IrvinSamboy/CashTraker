@@ -1,10 +1,11 @@
-import app, {dbConnection} from "./server";
+import app, {dbConnection, addRoutes} from "./server";
 import config from "./config/";
 import type { Response } from "express";
 
 const setupServer = async () => {
     try{
         await dbConnection()
+        await addRoutes()
         app.listen(config.setupConfig.PORT, () => {
             console.log(`Server listening on port ${config.setupConfig.PORT}`)
         })
@@ -17,7 +18,7 @@ const setupServer = async () => {
 
 setupServer()
 
-app.get('/healthCheck', (res: Response) => {
+app.get('/healthCheck', (_, res: Response) => {
     return res.status(200).json({
         message: "Api is running correctly!!!"
     })
