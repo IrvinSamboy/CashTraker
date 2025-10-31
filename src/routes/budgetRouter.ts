@@ -1,11 +1,7 @@
 import { Router } from "express";
-
+import { BudgetController } from "../controllers/BudgetController";
 const router = Router()
 
-router.get("/", (_, res)=>{
-    res.status(200).json({
-        message: "Status RUNNING"
-    })
-})
+router.post("/", BudgetController.create)
 
 export default router
