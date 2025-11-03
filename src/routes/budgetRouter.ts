@@ -3,17 +3,18 @@ import { BudgetController } from "../controllers/BudgetController";
 import { body } from "express-validator";
 import { handleInputErrors } from "../middlewares/validation";
 import { validateBudgetId, validateBudgetExits } from "../middlewares/budget";
+
 const router = Router()
 
+router.param("budgetId", validateBudgetId)
+router.param("budgetId", validateBudgetExits)
 
 router.get(
     "/",
     BudgetController.getAll
 )
 router.get(
-    "/:id",
-    validateBudgetId,
-    validateBudgetExits,
+    "/:budgetId",
     BudgetController.getById
 )
 router.post(
@@ -29,7 +30,7 @@ router.post(
 )
 
 router.put(
-    "/:id",
+    "/:budgetId",
     body("name")
         .optional(),
     body("amount")
@@ -37,13 +38,11 @@ router.put(
         .isNumeric().withMessage("Amount cloud be number")
         .custom(value => value > 0).withMessage("Value cloud be greather than 0"),
     handleInputErrors,
-    validateBudgetExits,
     BudgetController.update
 )
 
 router.delete(
-    "/:id",
-    validateBudgetExits,
+    "/:budgetId",
     BudgetController.delete
 )
 
