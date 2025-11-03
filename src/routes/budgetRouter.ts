@@ -4,6 +4,15 @@ import { body } from "express-validator";
 import { handleInputErrors } from "../middlewares/validation";
 const router = Router()
 
+
+router.get(
+    "/",
+    BudgetController.getAll
+)
+router.get(
+    "/:id",
+    BudgetController.getById
+)
 router.post(
     "/", 
     body("name")
@@ -15,5 +24,6 @@ router.post(
     handleInputErrors,
     BudgetController.create
 )
+
 
 export default router
