@@ -57,7 +57,7 @@ export class BudgetController {
         })
     }
 
-    static updateBudget = async (req: Request, res: Response) => {
+    static update = async (req: Request, res: Response) => {
         try {
             const budget = req.budget
             
@@ -73,6 +73,25 @@ export class BudgetController {
             return res.status(500).json({
                 message: "Internal server error"
             })
-        }
+        }    
+    }
+
+    static delete = async (req: Request, res: Response) => {
+        try {
+            const budget = req.budget
+            
+            await budget.destroy()
+
+            res.status(200).json({
+                message: "Budget deleted correctly"
+            })
+
+        } catch (error) {
+            const errorMessage = (error as Error)
+            console.log(errorMessage)
+            return res.status(500).json({
+                message: "Internal server error"
+            })
+        }    
     }
 }

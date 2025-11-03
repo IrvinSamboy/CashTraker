@@ -38,7 +38,13 @@ router.put(
         .custom(value => value > 0).withMessage("Value cloud be greather than 0"),
     handleInputErrors,
     validateBudgetExits,
-    BudgetController.updateBudget
+    BudgetController.update
+)
+
+router.delete(
+    "/:id",
+    validateBudgetExits,
+    BudgetController.delete
 )
 
 
