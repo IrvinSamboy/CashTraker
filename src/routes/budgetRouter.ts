@@ -28,5 +28,18 @@ router.post(
     BudgetController.create
 )
 
+router.put(
+    "/:id",
+    body("name")
+        .optional(),
+    body("amount")
+        .optional()
+        .isNumeric().withMessage("Amount cloud be number")
+        .custom(value => value > 0).withMessage("Value cloud be greather than 0"),
+    handleInputErrors,
+    validateBudgetExits,
+    BudgetController.updateBudget
+)
+
 
 export default router
