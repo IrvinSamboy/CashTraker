@@ -4,7 +4,7 @@ import { body } from "express-validator";
 import { handleInputErrors } from "../middlewares/validation";
 import { validateBudgetId, validateBudgetExits } from "../middlewares/budget";
 import { ExpenseController } from "../controllers/ExpensesController";
-import { validateExpensetId } from "../middlewares/expense";
+import { validateExpensetId, validateExpenseExits } from "../middlewares/expense";
 
 const router = Router()
 
@@ -65,7 +65,9 @@ router.post(
 router.get(
     "/:budgetId/expense/:expenseId",
     validateExpensetId,
-    handleInputErrors
+    handleInputErrors,
+    validateExpenseExits,
+    ExpenseController.getById
 )
 
 export default router

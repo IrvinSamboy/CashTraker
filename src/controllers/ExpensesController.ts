@@ -21,4 +21,18 @@ export class ExpenseController {
             })
         }
     }
+
+    static getById = async (req: Request, res: Response) => {
+        try {
+            return res.status(200).json({
+                message: req.expense
+            })
+        } catch (error) {
+            const errorMessage = (error as Error)
+            console.log(errorMessage.message)
+            return res.status(500).json({
+                message: "Internal server error"
+            })
+        }
+    }
 }
