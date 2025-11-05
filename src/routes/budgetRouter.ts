@@ -3,6 +3,7 @@ import { BudgetController } from "../controllers/BudgetController";
 import { body } from "express-validator";
 import { handleInputErrors } from "../middlewares/validation";
 import { validateBudgetId, validateBudgetExits } from "../middlewares/budget";
+import { ExpenseController } from "../controllers/ExpensesController";
 
 const router = Router()
 
@@ -57,7 +58,7 @@ router.post(
         .isNumeric().withMessage("Amount could be number")
         .custom(value => value > 0).withMessage("Value could be greather than 0"),
     handleInputErrors, 
-    BudgetController.create
+    ExpenseController.create
 )
 
 
