@@ -20,11 +20,11 @@ router.get(
 router.post(
     "/", 
     body("name")
-        .notEmpty().withMessage("Name cloud'nt be empty"),
+        .notEmpty().withMessage("Name could'nt be empty"),
     body("amount")
-        .notEmpty().withMessage("Amount cloud'nt be empty")
-        .isNumeric().withMessage("Amount cloud be number")
-        .custom(value => value > 0).withMessage("Value cloud be greather than 0"),
+        .notEmpty().withMessage("Amount could'nt be empty")
+        .isNumeric().withMessage("Amount could be number")
+        .custom(value => value > 0).withMessage("Value could be greather than 0"),
     handleInputErrors,
     BudgetController.create
 )
@@ -35,8 +35,8 @@ router.put(
         .optional(),
     body("amount")
         .optional()
-        .isNumeric().withMessage("Amount cloud be number")
-        .custom(value => value > 0).withMessage("Value cloud be greather than 0"),
+        .isNumeric().withMessage("Amount could be number")
+        .custom(value => value > 0).withMessage("Value could be greather than 0"),
     handleInputErrors,
     BudgetController.update
 )
@@ -51,11 +51,11 @@ router.delete(
 router.post(
     "/:budgetId/expense", 
     body("name")
-        .notEmpty().withMessage("Name cloud'nt be empty"),
+        .notEmpty().withMessage("Name could'nt be empty"),
     body("amount")
-        .notEmpty().withMessage("Amount cloud'nt be empty")
-        .isNumeric().withMessage("Amount cloud be number")
-        .custom(value => value > 0).withMessage("Value cloud be greather than 0"),
+        .notEmpty().withMessage("Amount could'nt be empty")
+        .isNumeric().withMessage("Amount could be number")
+        .custom(value => value > 0).withMessage("Value could be greather than 0"),
     handleInputErrors, 
     BudgetController.create
 )
