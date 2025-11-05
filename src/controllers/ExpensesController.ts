@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import Expense from "../database/models/expenses"
 
 export class ExpenseController {
+    
     static create = async (req: Request, res: Response) => {
         try {
             const expense = new Expense(req.body)

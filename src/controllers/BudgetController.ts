@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import Budget from "../database/models/Budget"
+import Expense from "../database/models/expenses"
 
 export class BudgetController {
 
@@ -52,9 +53,28 @@ export class BudgetController {
     }
 
     static getById = async (req: Request, res: Response) => {
-        return res.status(200).json({
-            message: req.budget
-        })
+        try {
+            const budget = await Budget.findByPk(req.params.budgetId, {
+                include: [Expense]
+            })
+
+            if(!budget) {
+                return res.status(404).json({
+                    messsage: "Budget not found"
+                })
+            }
+
+            res.status(200).json({
+                message: budget
+            })
+
+        } catch (error) {
+            const errorMessage = (error as Error)
+            console.log(errorMessage)
+            return res.status(500).json({
+                message: "Internal server error"
+            })
+        }    
     }
 
     static update = async (req: Request, res: Response) => {
