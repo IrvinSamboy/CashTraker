@@ -35,4 +35,42 @@ export class ExpenseController {
             })
         }
     }
+
+    static update = async (req: Request, res: Response) => {
+        try {
+            const expense = req.expense
+            
+            await expense.update(req.body)
+            
+            res.status(200).json({
+                message: "Budget updated correctly"
+            })
+
+        } catch (error) {
+            const errorMessage = (error as Error)
+            console.log(errorMessage.message)
+            return res.status(500).json({
+                message: "Internal server error"
+            })
+        }   
+    }
+
+    static delete = async (req: Request, res: Response) => {
+        try {
+            const expense = req.expense
+            
+            await expense.destroy()
+            
+            res.status(200).json({
+                message: "Budget deleted correctly"
+            })
+
+        } catch (error) {
+            const errorMessage = (error as Error)
+            console.log(errorMessage.message)
+            return res.status(500).json({
+                message: "Internal server error"
+            })
+        }   
+    }
 }
