@@ -70,4 +70,19 @@ router.get(
     ExpenseController.getById
 )
 
+router.put(
+    "/:budgetId/expense/:expenseId",
+    validateExpensetId,
+    handleInputErrors,
+    validateExpenseExits,
+    ExpenseController.update
+)
+router.delete(
+    "/:budgetId/expense/:expenseId",
+    validateExpensetId,
+    handleInputErrors,
+    validateExpenseExits,
+    ExpenseController.delete
+)
+
 export default router
